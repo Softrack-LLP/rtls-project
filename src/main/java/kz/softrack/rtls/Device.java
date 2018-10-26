@@ -1,5 +1,6 @@
 package kz.softrack.rtls;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "device")
 @Data
 @AllArgsConstructor
+@ApiModel
 public class Device {
 
     @Id
