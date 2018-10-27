@@ -1,5 +1,6 @@
-package kz.softrack.rtls;
+package kz.softrack.rtls.spring.config;
 
+import kz.softrack.rtls.spring.repository.DeviceRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 

@@ -1,5 +1,6 @@
-package kz.softrack.rtls;
+package kz.softrack.rtls.spring.repository;
 
+import kz.softrack.rtls.model.Device;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
