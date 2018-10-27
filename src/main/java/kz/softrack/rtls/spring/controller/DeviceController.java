@@ -21,8 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/device")
 public class DeviceController {
 
+    final DeviceRepository deviceRepository;
+
     @Autowired
-    DeviceRepository deviceRepository;
+    public DeviceController(final DeviceRepository deviceRepository) {
+
+        this.deviceRepository = deviceRepository;
+    }
 
     @RequestMapping(value = "/saveList", method = RequestMethod.POST)
     @ApiOperation("Save list of devices")
