@@ -4,11 +4,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
+import java.util.stream.Collectors;
 import kz.softrack.rtls.model.Device;
-import kz.softrack.rtls.spring.repository.DeviceRepository;
+import kz.softrack.rtls.model.DeviceRequest;
+import kz.softrack.rtls.spring.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,20 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/device")
 public class DeviceController {
 
-    final DeviceRepository deviceRepository;
+    final DeviceService deviceService;
 
     @Autowired
-    public DeviceController(final DeviceRepository deviceRepository) {
+    public DeviceController(final DeviceService deviceService) {
 
-        this.deviceRepository = deviceRepository;
+        this.deviceService = deviceService;
     }
 
     @RequestMapping(value = "/saveList", method = RequestMethod.POST)
     @ApiOperation("Save list of devices")
     @ApiResponses(@ApiResponse(code = 200, message = "Save list of device signals"))
-    public void saveList(@RequestBody List<Device> devices) {
+    public void saveList(@RequestBody List<DeviceRequest> devices) {
 
-        deviceRepository.insert(devices);
+        deviceService.saveDevices(devices.stream()
+                                      .map(DeviceRequest::toDevice)
+                                      .collect(Collectors.toList())
+                                 );
     }
 
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
@@ -43,8 +46,7 @@ public class DeviceController {
     public List<Device> getList(@RequestParam(defaultValue = "0") Integer page,
                                 @RequestParam(defaultValue = "10") Integer size) {
 
-        final Page<Device> insert = deviceRepository.findAll(PageRequest.of(page, size));
-        return insert.getContent();
+        return deviceService.findAll(page, size);
     }
 
 }

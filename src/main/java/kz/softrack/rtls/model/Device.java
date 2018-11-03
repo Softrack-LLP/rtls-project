@@ -1,8 +1,6 @@
 package kz.softrack.rtls.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -15,24 +13,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "device")
 @Data
 @AllArgsConstructor
-@ApiModel("Device model representing data from beacon")
 public class Device {
 
+    public Device(final String userId, final String name, final Integer rssi,
+                  final Long timestamp) {
+
+        this.userId = userId;
+        this.name = name;
+        this.rssi = rssi;
+        this.timestamp = timestamp;
+    }
+
     @Id
-    @JsonIgnore
-    private long id;
+    private UUID id = UUID.randomUUID();
 
     @Indexed(unique = false)
-    @ApiModelProperty(notes = "ID of the user/beacon.", example = "123asdf", dataType = "java.lang.String")
     private String userId;
 
     @Indexed(unique = false)
-    @ApiModelProperty(notes = "Name of the BLE station that receives this signal", example = "ENTRANCE_1", dataType = "java.lang.String")
     private String name;
 
-    @ApiModelProperty(notes = "RSSI value of the BLE", example = "-61", dataType = "java.lang.Integer")
     private Integer rssi;
 
-    @ApiModelProperty(notes = "UNIX timestamp representing timestamp of signal", example = "123456789", dataType = "java.lang.Long")
     private Long timestamp;
 }
