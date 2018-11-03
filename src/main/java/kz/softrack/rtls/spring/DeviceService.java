@@ -2,7 +2,6 @@ package kz.softrack.rtls.spring;
 
 import java.util.List;
 import kz.softrack.rtls.model.Device;
-import kz.softrack.rtls.model.DeviceRequest;
 import kz.softrack.rtls.spring.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +22,7 @@ public class DeviceService {
     }
 
     public void saveDevices(List<Device> devices) {
-
+        deviceRepository.insert(devices);
     }
 
     public List<Device> findAll(final int page, final int size) {
