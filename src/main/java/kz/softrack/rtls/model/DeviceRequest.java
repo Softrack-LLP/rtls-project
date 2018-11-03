@@ -4,12 +4,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Sanzhar Aubakirov (c0rp.aubakirov@gmail.com)
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @ApiModel("Device model representing data from beacon")
 public class DeviceRequest {
 
