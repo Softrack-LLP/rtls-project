@@ -21,7 +21,7 @@ public class KafkaConsumerListener {
 
     private final Gson gson = new Gson();
 
-    @KafkaListener(topics = "device", groupId = "kz-kaznu")
+    @KafkaListener(topics = "device", groupId = "kz-softrack")
     public void listen(String message) throws InterruptedException {
         System.out.println("Received Message : " + message);
         List<Device> deviceList = gson.fromJson(message, new TypeToken<List<Device>>(){}.getType());
